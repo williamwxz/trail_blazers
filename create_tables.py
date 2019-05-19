@@ -5,6 +5,7 @@ from sql_queries import create_table_queries, drop_table_queries
 
 def drop_tables(cur, conn):
     for query in drop_table_queries:
+        print(query)
         cur.execute(query)
         conn.commit()
 
@@ -24,9 +25,9 @@ def main():
 
     drop_tables(cur, conn)
     create_tables(cur, conn)
-
+    
     conn.close()
-
+    print("Create tables successfully")
 
 if __name__ == "__main__":
     main()
