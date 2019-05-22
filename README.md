@@ -2,8 +2,11 @@
 
 ## Data source
 **I94 Immigration Data**: This data comes from the US National Tourism and Trade Office. A data dictionary is included in the workspace. This is where the data comes from. There's a sample file so you can take a look at the data in csv format before reading it all in. 
+
 **World Temperature Data**: This dataset came from Kaggle. You can read more about it here.
+
 **U.S. City Demographic Data**: This data comes from OpenSoft. You can read more about it here.
+
 **Airport Code Table**: This is a simple table of airport codes and corresponding cities. It comes from here
 
 ## Steps for this projects:
