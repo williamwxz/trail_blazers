@@ -2,14 +2,12 @@ from datetime import datetime, timedelta
 import os
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
-# from airflow.operators import (StageToRedshiftOperator, LoadFactOperator,
+# from operators import (StageToRedshiftOperator,
 #                                 LoadDimensionOperator, DataQualityOperator)
-# from airflow.operators import LoadFactOperator
+from operators import StageToRedshiftOperator
 from helpers import SqlQueries
 from airflow.models import Variable
 
-# AWS_KEY = os.environ.get('AWS_KEY')
-# AWS_SECRET = os.environ.get('AWS_SECRET')
 HOST = "redshift"
 
 default_args = {
@@ -27,7 +25,7 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 
-dag = DAG('project5',
+dag = DAG('capstone',
           default_args=default_args,
           description='Load and transform data in Redshift with Airflow',
           schedule_interval='@hourly',

@@ -5,6 +5,8 @@ from airflow.plugins_manager import AirflowPlugin
 import operators
 import helpers
 
+import logging
+
 # Defining the plugin class
 class UdacityPlugin(AirflowPlugin):
     name = "udacity_plugin"
@@ -17,4 +19,4 @@ class UdacityPlugin(AirflowPlugin):
     helpers = [
         helpers.SqlQueries
     ]
-    print("Loaded")
+    logging.info("Loaded=================================\n\n\n\n")
