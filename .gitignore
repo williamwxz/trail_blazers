@@ -4,3 +4,10 @@ credentials/
 __pycache__/
 *.pyc
 airflow/logs
+*.SAS
+*.parquet.*
+raw_data/
+sas_data.parquet/
+sas_data/
+template.ipynb
+test.ipynb
