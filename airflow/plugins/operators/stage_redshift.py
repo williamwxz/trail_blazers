@@ -8,17 +8,15 @@ class StageToRedshiftOperator(BaseOperator):
 
     @apply_defaults
     def __init__(self,
-                 create_tables_sql="",
                  redshift_conn_id="",
                  table="",
                  s3_bucket="",
                  region="us-west-2",
                  delimiter=",",
-                 ignore_headers=1,
+                 ignore_headers=True,
                  *args, **kwargs):
 
         super(StageToRedshiftOperator, self).__init__(*args, **kwargs)
-        self.create_tables_sql=create_tables_sql
         self.redshift_conn_id=redshift_conn_id
         self.table = table
         self.s3_bucket = s3_bucket
@@ -38,8 +36,6 @@ class StageToRedshiftOperator(BaseOperator):
 
     def execute(self, context):
         self.log.info("staging table {}".format(self.table))
-#         aws_hook = AwsHook(self.aws_credentials_id)
-#         credentials = aws_hook.get_credentials()
         self.log.info("Getting connection to {}".format(self.redshift_conn_id))
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
         
@@ -52,21 +48,3 @@ class StageToRedshiftOperator(BaseOperator):
         redshift.run(command)
         return
     
-    def create_tables(self, redshift):
-        # Open and read the file as a single buffer
-        self.log.info("run sql script {} to create tables".format(self.create_tables_sql))
-        df = open(self.create_tables_sql, 'r')
-        sqlScript=df.read()
-        df.close()
-        sqlCommands=sqlScript.split(';')
-        for command in sqlCommands:
-            self.log.info(command)
-            command=command.strip()
-            if len(command)==0:
-                continue
-            redshift.run(command)
-        return
- 
-         
-            
-        

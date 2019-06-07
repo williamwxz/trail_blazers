@@ -19,4 +19,3 @@ class UdacityPlugin(AirflowPlugin):
     helpers = [
         helpers.SqlQueries
     ]
-    logging.info("Loaded=================================\n\n\n\n")

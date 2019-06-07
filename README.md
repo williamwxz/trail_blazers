@@ -15,6 +15,13 @@
 3. Copy staging table to redshift
 4. Run airflow for scheduled jobs and data quality check
 
+## Scripts Structure:
+1. analysis.ipynb - main iPython script for most of the analysis
+2. configurations - folder for all config.cfg
+3. README.md - introduction of this project.
+4. airflow - all scripts for starting airflow
+5. sql_queries.py - contains all 
+
 ## Tools and technology:
 1. S3 - data lake
 2. EMR (Optional) - run notebook
