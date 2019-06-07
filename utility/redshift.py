@@ -38,7 +38,7 @@ def main(create=True):
     client = boto3.client('redshift', \
         region_name=config.get('AWS', 'REGION'),
         aws_access_key_id=config.get('AWS','KEY'),
-        aws_secret_access_key=config.get('AWS','SECRET'))
+        aws_secret_access_key=config.get('AWS','SECRETE'))
     if create:
         response = create_redshift(client, config)
     else:
