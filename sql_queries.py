@@ -40,14 +40,15 @@ Create Table If Not Exists {}(
     avg_household_size float,
     state_code varchar,
     race varchar,
-    count int
+    count int,
+    Primary Key(city, state)
 )
 """.format(DEMOGRAPHICS_TABLE)
 
 CREATE_IMMIGRATION_TABLE="""
 Create Table If Not Exists {}(
     uname_id      int,
-    cicid         float,
+    cicid         float Not Null Primary Key, 
     i94yr         float,
     i94mon        float,
     i94cit        float,

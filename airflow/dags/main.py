@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
-from operators import StageToRedshiftOperator, DataQualityOperator
+from operators import StageToRedshiftOperator, DataQualityOperator, CountDataframeOperator
 from helpers import SqlQueries
 from airflow.models import Variable
 
@@ -66,11 +66,18 @@ stage_airport_to_redshift = StageToRedshiftOperator(
     dag=dag
 )
 
-run_quality_checks = DataQualityOperator(
+run_null_checks = DataQualityOperator(
     redshift_conn_id=HOST,
     tables=[DEMOGRAPHICS_TABLE, IMMIGRATION_TABLE, AIRPORT_TABLE],
     primary_keys=['userid','songid', 'artistid', 'start_time'],
-    task_id='Run_data_quality_checks',
+    task_id='Run_null_checks',
+    dag=dag
+)
+
+run_count_checks = CountDataframeOperator(
+    redshift_conn_id=HOST,
+    tables=[DEMOGRAPHICS_TABLE, IMMIGRATION_TABLE, AIRPORT_TABLE],
+    task_id='Run_count_checks',
     dag=dag
 )
 
@@ -80,10 +87,10 @@ start_operator>>stage_demographics_to_redshift
 start_operator>>stage_immigration_to_redshift
 start_operator>>stage_airport_to_redshift
 
-stage_demographics_to_redshift>>run_quality_checks
-stage_immigration_to_redshift>>run_quality_checks
-stage_airport_to_redshift>>run_quality_checks
+stage_demographics_to_redshift>>run_null_checks
+stage_immigration_to_redshift>>run_null_checks
+stage_airport_to_redshift>>run_null_checks
 
-run_quality_checks>>end_operator
+run_null_checks>>run_count_checks
 
-
+run_count_checks>>end_operator
